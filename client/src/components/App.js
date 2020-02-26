@@ -2,13 +2,15 @@ import React from 'react'
 import SearchBar from './SearchBar'
 import BillDetail from './BillDetail'
 import BillList from './BillList'
+import propublica from '../apis/propublica.js'
 
 class App extends React.Component {
     state = { 
         bills: [],
-        selectedBill: null
+        selectedBill: {},
+        modalOpen: false
     }
-/*
+
     componentDidMount() {
         this.onTermSubmit('tax')
     }
@@ -19,32 +21,27 @@ class App extends React.Component {
                 query: term
             }
         })
-       
+        
         this.setState({ 
-            bills: response.data.items,
-            selectedBill: response.data.items[0]
+            bills: response.data.results[0].bills
         })
     }
-*/
+
 
     onBillSelect = bill => {
-        this.setState({ selectedBill: bill })
+        this.setState({ selectedBill: bill, modalOpen: true })
+    }
+
+    onModalClose = () => {
+        this.setState({ modalOpen: false })
     }
     
     render() {
         return (
             <div className="ui container"> 
                 <SearchBar onFormSubmit={this.onTermSubmit} />
-                <div className="ui grid">
-                    <div className="ui row">
-                        <div className="eleven wide column">
-                            <BillDetail bill={this.state.selectedBill} />
-                        </div>
-                        <div className="five wide column">
-                            <BillList bills={this.state.bills} onBillSelect={this.onBillSelect} />
-                        </div>
-                    </div>
-                </div>
+                <BillDetail bill={this.state.selectedBill} open={this.state.modalOpen} onModalClose={this.onModalClose} />
+                <BillList bills={this.state.bills} onBillSelect={this.onBillSelect} />
             </div>
         )
     }
