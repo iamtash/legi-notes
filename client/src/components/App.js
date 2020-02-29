@@ -1,7 +1,9 @@
 import React from 'react'
+import { BrowserRouter, Route } from 'react-router-dom'
+import Header from './Header'
 import SearchBar from './SearchBar'
-import BillDetail from './BillDetail'
-import BillList from './BillList'
+import BillDetail from './bills/BillDetail'
+import BillList from './bills/BillList'
 import propublica from '../apis/propublica.js'
 
 class App extends React.Component {
@@ -39,9 +41,12 @@ class App extends React.Component {
     render() {
         return (
             <div className="ui container"> 
-                <SearchBar onFormSubmit={this.onTermSubmit} />
-                <BillDetail bill={this.state.selectedBill} open={this.state.modalOpen} onModalClose={this.onModalClose} />
-                <BillList bills={this.state.bills} onBillSelect={this.onBillSelect} />
+                <BrowserRouter>
+                    <Header />
+                    <SearchBar onFormSubmit={this.onTermSubmit} />
+                    <BillDetail bill={this.state.selectedBill} open={this.state.modalOpen} onModalClose={this.onModalClose} />
+                    <BillList bills={this.state.bills} onBillSelect={this.onBillSelect} />
+                </BrowserRouter>
             </div>
         )
     }
