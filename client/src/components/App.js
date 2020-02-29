@@ -1,14 +1,14 @@
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
 import Header from './Header'
 import SearchBar from './SearchBar'
 import BillDetail from './bills/BillDetail'
 import BillList from './bills/BillList'
-import propublica from '../apis/propublica.js'
+import { getBills } from '../actions'
 
 class App extends React.Component {
     state = { 
-        bills: [],
         selectedBill: {},
         modalOpen: false
     }
@@ -17,16 +17,8 @@ class App extends React.Component {
         this.onTermSubmit('tax')
     }
 
-    onTermSubmit = async term => {
-        const response = await propublica.get('/search.json', {
-            params: {
-                query: term
-            }
-        })
-        
-        this.setState({ 
-            bills: response.data.results[0].bills
-        })
+    onTermSubmit = term => {
+        this.props.getBills(term)
     }
 
 
@@ -45,11 +37,11 @@ class App extends React.Component {
                     <Header />
                     <SearchBar onFormSubmit={this.onTermSubmit} />
                     <BillDetail bill={this.state.selectedBill} open={this.state.modalOpen} onModalClose={this.onModalClose} />
-                    <BillList bills={this.state.bills} onBillSelect={this.onBillSelect} />
+                    <BillList onBillSelect={this.onBillSelect} />
                 </BrowserRouter>
             </div>
         )
     }
 }
 
-export default App
+export default connect(null, { getBills })(App)

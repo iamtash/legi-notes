@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import BillItem from './BillItem'
 
 const BillList = ({ bills, onBillSelect }) => {
@@ -14,4 +15,8 @@ const BillList = ({ bills, onBillSelect }) => {
     return <div className="ui three stackable cards">{renderedList}</div>
 }
 
-export default BillList
+const mapStateToProps = state => {
+    return { bills: state.bills }
+}
+
+export default connect(mapStateToProps)(BillList)
