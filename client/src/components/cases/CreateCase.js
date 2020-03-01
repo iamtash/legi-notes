@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Button, Segment, Icon } from 'semantic-ui-react'
+import { Modal, Form, Input, Button, Icon } from 'semantic-ui-react'
 
 class CreateCase extends React.Component {
     state = {
@@ -8,41 +8,65 @@ class CreateCase extends React.Component {
         client: ''
     }
 
-    onChange = e => {
+    handleChange = e => {
         this.setState({ [e.target.name]: e.target.value})
     }
 
-    onSubmit = e => {
+    handleSubmit = e => {
         e.preventDefault()
         this.props.onFormSubmit(this.state)
     }
 
     render() {
+        const { showForm, onCloseFormClick } = this.props
+
         return (
-            <Segment raised>
-                <Form>
-                    <Form.Field>
-                        <label>Case Number</label>
-                        <Input placeholder="Case Number" name="number" value={this.state.number} />
-                    </Form.Field>
-                    <Form.Field>
-                        <label>Title</label>
-                        <Input placeholder="Title" name="title" value={this.state.title} />
-                    </Form.Field>
-                    <Form.Field>
-                        <label>Client</label>
-                        <Input placeholder="Client" name="client" value={this.state.client} />
-                    </Form.Field>
-                    <Button primary type="submit">
-                        <Icon name="folder" />
-                        Create
-                    </Button>
-                    <Button secondary onClick={this.props.onCloseFormClick}>
-                        <Icon name="close" />
-                        Close
-                    </Button>
-                </Form>
-            </Segment>
+            <Modal open={showForm} onClose={onCloseFormClick}>
+                <i onClick={this.props.onCloseFormClick} className="close icon"></i>
+                <div className="header">New Case</div>
+                <div className="content">
+                    <Form onSubmit={this.handleSubmit}>
+                        <Form.Field>
+                            <label>Case Number</label>
+                            <Input 
+                                placeholder="Case Number" 
+                                name="number" 
+                                value={this.state.number} 
+                                onChange={this.handleChange}
+                                required 
+                            />
+                        </Form.Field>
+                        <Form.Field>
+                            <label>Title</label>
+                            <Input 
+                                placeholder="Title" 
+                                name="title" 
+                                value={this.state.title} 
+                                onChange={this.handleChange}
+                                required 
+                            />
+                        </Form.Field>
+                        <Form.Field>
+                            <label>Client</label>
+                            <Input 
+                                placeholder="Client" 
+                                name="client" 
+                                value={this.state.client} 
+                                onChange={this.handleChange}
+                                required 
+                            />
+                        </Form.Field>
+                        <Button primary type="submit">
+                            <Icon name="folder" />
+                            Create
+                        </Button>
+                        <Button secondary onClick={onCloseFormClick}>
+                            <Icon name="close" />
+                            Close
+                        </Button>
+                    </Form>
+                </div>
+            </Modal>
         )
     }
 }
