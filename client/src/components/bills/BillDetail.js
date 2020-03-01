@@ -2,6 +2,7 @@ import DataTable from './DataTable'
 import React from 'react'
 import { Modal, Button, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const BillDetail = ({ bill, open, onModalClose, isSignedIn }) => {
     const { number, title,  congressdotgov_url } = bill 
@@ -9,10 +10,12 @@ const BillDetail = ({ bill, open, onModalClose, isSignedIn }) => {
     const renderBookmarkBtn = () => {
         if (isSignedIn) {
             return (
-                <Button primary>
-                    <Icon name="bookmark" />
-                    Bookmark
-                </Button>
+                <Link to="/bookmarks/new">
+                    <Button primary onClick={onModalClose}>
+                        <Icon name="bookmark" />
+                        Bookmark
+                    </Button>
+                </Link> 
             )
         } else {
             return null
