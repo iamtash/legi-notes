@@ -10,17 +10,19 @@ const CaseItem = (props) => {
     const clickable = () => (props.onCaseSelect ? "case-item" : "")
 
     const renderBookmarks = () => {
-        return bookmarks.map(bookmark => {
-            return (
-                <Table.Row key={bookmark.id}>
-                    <Table.Cell>
-                        <a href={bookmark.url} target="_blank" rel="noopener noreferrer">
-                            {bookmark.bill_number}
-                        </a>
-                    </Table.Cell>
-                </Table.Row>
-            )
-        })
+        if (bookmarks && bookmarks.length > 0) {
+            return bookmarks.map(bookmark => {
+                return (
+                    <Table.Row key={bookmark.id}>
+                        <Table.Cell>
+                            <a href={bookmark.url} target="_blank" rel="noopener noreferrer">
+                                {bookmark.bill_number}
+                            </a>
+                        </Table.Cell>
+                    </Table.Row>
+                )
+            })
+        }
     }
 
     return (
