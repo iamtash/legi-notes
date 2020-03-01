@@ -13,9 +13,15 @@ class NewBookmark extends React.Component {
     }
 
     onFormSubmit = caseAttributes => {
-        const data = { ...this.props.selectedBill, case_attributes: caseAttributes }
+        const data = { ...this.props.selectedBill, case_attributes: { 
+                ...caseAttributes, 
+                user_id: this.props.currentUserId 
+            }
+        }
 
         this.props.createBookmarkAndCase(data)
+
+        this.props.history.push('/bookmarks')
     }
 
     onCaseSelect = caseId => {
@@ -29,8 +35,7 @@ class NewBookmark extends React.Component {
     onShowFormClick = () => {
         this.setState({ 
             showOption: false, 
-            showForm: true,
-            showCases: false
+            showForm: true
         })
     }
 
@@ -50,19 +55,6 @@ class NewBookmark extends React.Component {
         }
     }
 
-    renderForm = () => {
-        if (this.state.showForm)
-            return (
-                <CreateCase 
-                    onCloseFormClick={this.onCloseFormClick} 
-                    onFormSubmit={this.onFormSubmit} 
-                />
-            )
-        else {
-            return null
-        }
-    }
-
     renderCases = () => {
         if (this.state.showCases) {
             return <CaseList onCaseSelect={this.onCaseSelect} />
@@ -71,12 +63,23 @@ class NewBookmark extends React.Component {
         }
     }
 
+    redirect = () => {
+        if (!this.props.selectedBill.bill_number) {
+            this.props.history.push('/bookmarks')
+        }
+    }
+
     render() {
-        console.log(this.props.history)
+        this.redirect()
+
         return (
             <>
             {this.renderOption()}
-            {this.renderForm()}
+            <CreateCase 
+                showForm={this.state.showForm} 
+                onCloseFormClick={this.onCloseFormClick} 
+                onFormSubmit={this.onFormSubmit}
+            />
             {this.renderCases()}
             </>
         )
@@ -90,7 +93,8 @@ const mapStateToProps = state => {
         selectedBill: { 
             bill_number: number,
             url: congressdotgov_url
-        }
+        },
+        currentUserId: state.currentUser.id
     }
 }
 
