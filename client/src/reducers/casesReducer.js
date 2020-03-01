@@ -13,6 +13,8 @@ export default (state = [], action) => {
                     return kase
                 }
             })
+        case 'CREATE_BOOKMARK_AND_CASE':
+            return [ ...state, action.payload ]
         default:
             return state
     }
