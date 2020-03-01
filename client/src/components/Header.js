@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { Icon } from 'semantic-ui-react'
 import Avatar from './Avatar'
 import GoogleAuth from './GoogleAuth'
 
@@ -13,9 +14,12 @@ const Header = ({ isSignedIn }) => {
         <div className="ui secondary pointing menu">
             <Link to="/" className="item header">LegiNotes</Link>
             {renderLinks()}
+            <Link to="/" className="item">
+                <Icon name="search" color="blue" />
+            </Link>
             <div className="right menu">
-                <Avatar style={{marginRight: '1em'}} />
-                <GoogleAuth />
+                <div className="item"><Avatar /></div>
+                <div className="item"><GoogleAuth /></div>
             </div>
         </div>
     )
