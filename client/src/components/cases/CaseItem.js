@@ -5,10 +5,6 @@ import './CaseItem.css'
 const CaseItem = (props) => {
     const { id, number, title, client, bookmarks } = props.kase
 
-    const onSelect = () => (props.onCaseSelect ? props.onCaseSelect(id) : null)
-
-    const clickable = () => (props.onCaseSelect ? "case-item" : "")
-
     const renderBookmarks = () => {
         if (bookmarks && bookmarks.length > 0) {
             return bookmarks.map(bookmark => {
@@ -23,10 +19,11 @@ const CaseItem = (props) => {
                 )
             })
         }
-    }
+    } 
 
-    return (
-        <Card raised onClick={onSelect} className={clickable()}>
+    const renderContent = () => {
+        return (
+            <>
             <Card.Content>
                 <Card.Header content={title} />
                 <Card.Meta content={number} />
@@ -44,8 +41,27 @@ const CaseItem = (props) => {
                     </Table>
                 </Card.Description>
             </Card.Content>
-      </Card>
-    )
+            </>
+        )
+    }
+
+    const renderCard = () => {
+        if (props.onCaseSelect) {
+            return (
+                <Card raised onClick={() => props.onCaseSelect(id)} >
+                    {renderContent()}
+                </Card>
+            )
+        } else {
+            return (
+                <Card raised>
+                    {renderContent()}
+                </Card>
+            )
+        }
+    }
+
+    return renderCard()
 }
 
 export default CaseItem
