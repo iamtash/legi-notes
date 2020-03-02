@@ -38,7 +38,14 @@ class SearchBar extends React.Component {
 
     renderMessage = () => {
         if (!this.props.loading && this.state.message) {
-            return <Message positive compact size="mini" >Search results for <b>{this.state.message}</b></Message>
+            return (
+                <Message 
+                    positive 
+                    compact 
+                    size="mini" 
+                >Search results for <b>{this.state.message}</b>
+                </Message>
+            )
         }
     }
 

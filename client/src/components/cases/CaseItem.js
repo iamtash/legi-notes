@@ -1,25 +1,9 @@
 import React from 'react'
 import { Card, Table } from 'semantic-ui-react'
-import './CaseItem.css'
+import BookmarksList from './BookmarksList'
 
 const CaseItem = (props) => {
     const { id, number, title, client, bookmarks } = props.kase
-
-    const renderBookmarks = () => {
-        if (bookmarks && bookmarks.length > 0) {
-            return bookmarks.map(bookmark => {
-                return (
-                    <Table.Row key={bookmark.id}>
-                        <Table.Cell>
-                            <a href={bookmark.url} target="_blank" rel="noopener noreferrer">
-                                {bookmark.bill_number}
-                            </a>
-                        </Table.Cell>
-                    </Table.Row>
-                )
-            })
-        }
-    } 
 
     const renderContent = () => {
         return (
@@ -33,10 +17,12 @@ const CaseItem = (props) => {
                     <div className="right floated">Client: {client}</div>
                     <Table basic="very">
                         <Table.Header>
-                            <Table.Row><Table.HeaderCell>Bookmarks</Table.HeaderCell></Table.Row>
+                            <Table.Row>
+                                <Table.HeaderCell>Bookmarks</Table.HeaderCell>
+                            </Table.Row>
                         </Table.Header>
                         <Table.Body>
-                            {renderBookmarks()}
+                            <BookmarksList bookmarks={bookmarks} />
                         </Table.Body>
                     </Table>
                 </Card.Description>

@@ -25,20 +25,16 @@ const BillDetail = ({ bill, open, onModalClose, isSignedIn }) => {
     return (
         <Modal open={open} onClose={onModalClose} >
             <i onClick={onModalClose} className="close icon"></i>
-                <div className="header">
-                    {number}
-                </div>
+            <div className="header">
+                {number}
+            </div>
             <div className="content">
                 <div className="description">
                     <div className="ui header">{title}</div>
-
                     <DataTable {...bill} />
-
-                    <div>
-                        <a href={congressdotgov_url} target="_blank" rel="noopener noreferrer">
-                            <Button basic color='blue' content='View Full Bill' />
-                        </a>
-                    </div>
+                    <a href={congressdotgov_url} target="_blank" rel="noopener noreferrer">
+                        <Button basic color='blue' content='View Full Bill' />
+                    </a>
                 </div>
             </div>
             <div className="actions">

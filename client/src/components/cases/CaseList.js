@@ -16,6 +16,7 @@ const CaseList = ({ cases, onCaseSelect }) => {
             return <CaseItem key={kase.id} kase={kase}/>
         }
     })
+    
     return <div className="ui three stackable cards">{renderedList}</div>
 }
 

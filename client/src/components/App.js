@@ -37,7 +37,11 @@ class App extends React.Component {
                     <Header />
                     <Route path="/" exact>
                         <SearchBar onFormSubmit={this.onTermSubmit} />
-                        <BillDetail bill={this.props.selectedBill} open={this.state.modalOpen} onModalClose={this.onModalClose} />
+                        <BillDetail 
+                            bill={this.props.selectedBill} 
+                            open={this.state.modalOpen} 
+                            onModalClose={this.onModalClose} 
+                        />
                         <BillList onBillSelect={this.onBillSelect} />
                     </Route>
                     <Route path="/bookmarks" exact component={CaseList} />
