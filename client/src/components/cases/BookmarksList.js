@@ -14,6 +14,8 @@ const BookmarksList = ({ bookmarks }) => {
                 </Table.Row>
             )
         })
+    } else {
+        return null
     }
 } 
 
