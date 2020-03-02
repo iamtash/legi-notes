@@ -14,7 +14,7 @@ class App extends React.Component {
     state = { modalOpen: false }
 
     componentDidMount() {
-        this.onTermSubmit('tax')
+        this.onTermSubmit('')
     }
 
     onTermSubmit = term => {
