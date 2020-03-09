@@ -23,7 +23,7 @@ default: &default
 development:
   <<: *default
   database: legi-notes_development
-  username: ENV['USERNAME']
+  username: <%= ENV['USERNAME'] %>
   host: localhost
   timeout: 5000
 
@@ -52,6 +52,6 @@ development:
 
 test:
   database: legi-notes_test
-  username: ENV['USERNAME']
+  username: <%= ENV['USERNAME'] %>
   host: localhost
   timeout: 5000
